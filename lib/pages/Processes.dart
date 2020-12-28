@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,7 +7,9 @@ void main() {
 class Processes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("widget 1"),);
+    return Container(
+      child: Text('Processes'),
+    );
   }
 }
 

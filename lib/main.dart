@@ -1,8 +1,8 @@
-import 'package:chankuap_flutter/Documents.dart';
-import 'package:chankuap_flutter/Processes.dart';
-import 'package:chankuap_flutter/Storage.dart';
-import 'package:chankuap_flutter/Transactions.dart';
 import 'package:chankuap_flutter/app_icons.dart';
+import 'package:chankuap_flutter/pages/Documents.dart';
+import 'package:chankuap_flutter/pages/Processes.dart';
+import 'package:chankuap_flutter/pages/Storage.dart';
+import 'package:chankuap_flutter/pages/Transactions.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -30,13 +30,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _pageIndex = 0;
+
   final Transactions tran = Transactions();
   final Storage sto = Storage();
   final Processes pro = Processes();
   final Documents doc = Documents();
 
-  int page = 0;
-  GlobalKey _bottomNavigationKey = GlobalKey();
+  Widget _showPage = new Transactions();
+
+  Widget _pageChooser(int page) {
+    switch(page) {
+      case 0:
+        return tran;
+        break;
+      case 1:
+        return sto;
+        break;
+      case 2:
+        return pro;
+        break;
+      case 3:
+        return doc;
+        break;
+      default:
+        return tran;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,27 +70,26 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(color:
         Colors.white,
         child: Center(
-          child: Text(page.toString(), textScaleFactor: 10.0)
+          child: _showPage,
         )
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        key: _bottomNavigationKey,
-        index: 0,
+        index: _pageIndex,
         color: Colors.amber,
         backgroundColor: Colors.white,
         buttonBackgroundColor: Colors.amber,
         height: 50,
         items: <Widget>[
-          Icon(AppIcons.transaction, size: 20, color: Colors.black),
-          Icon(AppIcons.storage, size: 20, color: Colors.black),
-          Icon(AppIcons.processes, size: 20, color: Colors.black),
-          Icon(AppIcons.document, size: 20, color: Colors.black),
+          Icon(AppIcons.transaction, size: 25, color: Colors.black),
+          Icon(AppIcons.storage, size: 25, color: Colors.black),
+          Icon(AppIcons.processes, size: 25, color: Colors.black),
+          Icon(AppIcons.document, size: 25, color: Colors.black),
         ],
         animationDuration: Duration(milliseconds: 200),
-        onTap: (index) {
-          debugPrint("the index is $index");
+        onTap: (int tappedIndex) {
+          debugPrint("the index is $tappedIndex");
           setState(() {
-            page = index;
+            _showPage = _pageChooser(tappedIndex);
           });
         },
       ),

@@ -7,8 +7,8 @@ void main() {
 class Storage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Container(
+      child: Text('Storage'),
+    );
   }
-
 }
