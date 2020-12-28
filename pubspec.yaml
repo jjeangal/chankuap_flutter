@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   adobe_xd:
+  curved_navigation_bar:
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -45,9 +46,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+    - family: AppIcons
+      fonts:
+        - asset: assets/fonts/AppIcons.ttf
+
   # To add assets to your application, add an assets section, like this:
-assets:
-   - assets/images/
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
