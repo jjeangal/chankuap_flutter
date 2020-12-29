@@ -1,4 +1,5 @@
 import 'package:chankuap_flutter/app_icons.dart';
+import 'package:chankuap_flutter/custom_app_bar.dart';
 import 'package:chankuap_flutter/pages/Documents.dart';
 import 'package:chankuap_flutter/pages/Processes.dart';
 import 'package:chankuap_flutter/pages/Storage.dart';
@@ -61,11 +62,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        title: Text(widget.title, style: TextStyle(
-            color: Colors.black),
-        ),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: MyAppBar(
+            title: Text("Hello + $_pageIndex",
+              style: TextStyle(color: Colors.black),
+            ),
+            widgets: <Widget>[new IconButton(
+                icon: new Icon(Icons.search),
+                onPressed: () => print("hello")
+            )],
+          )
       ),
       body: Container(color:
         Colors.white,
