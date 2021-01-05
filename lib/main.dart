@@ -1,11 +1,11 @@
 import 'package:chankuap_flutter/app_icons.dart';
-import 'package:chankuap_flutter/custom_app_bar.dart';
 import 'package:chankuap_flutter/pages/Documents.dart';
 import 'package:chankuap_flutter/pages/Processes.dart';
 import 'package:chankuap_flutter/pages/Storage.dart';
 import 'package:chankuap_flutter/pages/Transactions.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,10 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final Processes pro = Processes();
   final Documents doc = Documents();
 
-  Widget _showPage = new Transactions();
-
   Widget _pageChooser(int page) {
-    switch(page) {
+    switch (page) {
       case 0:
         return tran;
         break;
@@ -62,24 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: MyAppBar(
-            title: Text("Hello + $_pageIndex",
-              style: TextStyle(color: Colors.black),
-            ),
-            widgets: <Widget>[new IconButton(
-                icon: new Icon(Icons.search),
-                onPressed: () => print("hello")
-            )],
-          )
-      ),
-      body: Container(color:
-        Colors.white,
-        child: Center(
-          child: _showPage,
-        )
-      ),
+      body: Container(
+          child: Center(
+            child: _pageChooser(_pageIndex),
+          )),
       bottomNavigationBar: CurvedNavigationBar(
         index: _pageIndex,
         color: Colors.amber,
@@ -94,9 +78,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         animationDuration: Duration(milliseconds: 200),
         onTap: (int tappedIndex) {
-          debugPrint("the index is $tappedIndex");
+          _pageIndex = tappedIndex;
+          debugPrint("the index is $_pageIndex");
           setState(() {
-            _showPage = _pageChooser(tappedIndex);
+            //_showPage = _pageChooser(tappedIndex);
           });
         },
       ),
