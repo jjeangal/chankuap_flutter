@@ -38,6 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final Processes pro = Processes();
   final Documents doc = Documents();
 
+  Widget _showPage = new Transactions();
+
   Widget _pageChooser(int page) {
     switch (page) {
       case 0:
@@ -62,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Container(
           child: Center(
-            child: _pageChooser(_pageIndex),
+            child: _showPage,
           )),
       bottomNavigationBar: CurvedNavigationBar(
         index: _pageIndex,
@@ -81,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
           _pageIndex = tappedIndex;
           debugPrint("the index is $_pageIndex");
           setState(() {
-            //_showPage = _pageChooser(tappedIndex);
+            _showPage = _pageChooser(tappedIndex);
           });
         },
       ),
