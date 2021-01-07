@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class StorageAppBar extends StatelessWidget {
-  final Color backgroundColor = Colors.amber;
-  final AppBar appBar;
-  const StorageAppBar({Key key, this.appBar})
-      : super(key: key);
+  String appBarTitle;
+
+  StorageAppBar(String title){
+    this.appBarTitle = title;
+  }
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text("Storage for now"),
+      title: Text("$appBarTitle"),
       centerTitle: true,
-      backgroundColor: backgroundColor,
-
+      backgroundColor: Colors.amber,
       actions: <Widget>[new IconButton(
           icon: new Icon(Icons.search),
           onPressed: () => print("search")

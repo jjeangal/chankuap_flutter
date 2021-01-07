@@ -13,7 +13,7 @@ class Documents extends StatelessWidget {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: StorageAppBar(),
+          child: StorageAppBar("Documents"),
         ),
         body: Container(),
       ),
