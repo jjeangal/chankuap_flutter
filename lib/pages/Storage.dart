@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:chankuap_flutter/app_bars/storage_app_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../drawer_header.dart';
+
 class Storage extends StatefulWidget {
   Storage({ Key key }) : super(key: key);
 
@@ -23,9 +25,6 @@ class _StorageState extends State<Storage> {
 
   @override
   Widget build(BuildContext context) {
-
-    print("title in build" + _title);
-
     return Container(
       child: Scaffold(
         appBar: PreferredSize(
@@ -35,18 +34,7 @@ class _StorageState extends State<Storage> {
         drawer: new Drawer(
           child: ListView(
             children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                ),
-                child: Text(
-                  'Drawer Header',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
+              drawerHeader(),
               ListTile(
                 title: Text(materias),
                 onTap: () {

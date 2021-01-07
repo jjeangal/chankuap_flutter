@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 
 class TransactionAppBar extends StatelessWidget {
-  final Color backgroundColor = Colors.amber;
-  final AppBar appBar;
-  const TransactionAppBar({Key key, this.appBar})
-      : super(key: key);
+  String appBarTitle;
+
+  TransactionAppBar(String title){
+    this.appBarTitle = title;
+  }
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text("Historial de transacionnes",
+      title: Text("$appBarTitle",
           style: TextStyle(fontSize: 19)),
       centerTitle: true,
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.amber,
       actions: <Widget>[new IconButton(
           icon: new Icon(Icons.search),
           onPressed: () => print("search")
       )],
     );
   }
-
- // @override
-//  Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
 }
