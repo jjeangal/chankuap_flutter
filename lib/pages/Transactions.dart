@@ -37,14 +37,12 @@ class _TransactionState extends State<Transactions> {
               ListTile(
                 title: Text(entrada),
                 onTap: () {
-                  changeTitle(entrada);
                   Navigator.of(context).pop();
                 },
               ),
               ListTile(
                 title: Text(salida),
                 onTap: () {
-                  changeTitle(salida);
                   Navigator.of(context).pop();
                 },
               ),
