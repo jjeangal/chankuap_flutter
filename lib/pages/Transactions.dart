@@ -123,25 +123,20 @@ class _TransactionState extends State<Transactions> {
         ),
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Stack(children: [
-            Stack(
-              children: [
-                Positioned(
-                  child: Text("Cliente", style:
-                    TextStyle(
-                      color: Color(0xff073B3A),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    )),
-                  top: 14, left: 30),
-                Positioned(child: Text("12/12/20", style:
-                  TextStyle(
-                    color: Color(0xff073B3A),
-                    fontSize: 16
-                  )
-                ),
-                    bottom: 14, left: 30)
-              ],
-            ),
+            Positioned(
+              child: Text("Cliente", style:
+                TextStyle(
+                  color: Color(0xff073B3A),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18
+                )
+              ), top: 14, left: 30),
+            Positioned(child: Text("12/12/20", style:
+              TextStyle(
+                color: Color(0xff073B3A),
+                  fontSize: 16
+                )
+              ), bottom: 14, left: 30),
             Positioned(
               top: 25,
               right: 45,
@@ -168,10 +163,12 @@ class _TransactionState extends State<Transactions> {
   Widget _buildPopupDialog(BuildContext context) {
     return new Dialog(
       backgroundColor: Color(0xffEFEFEF),
-      insetPadding: EdgeInsets.fromLTRB(20, 100, 20, 100),
+      insetPadding: EdgeInsets.fromLTRB(20, 50, 20, 100),
       child: new Stack(
         children: [
-          Positioned(child: Text("Description de transaccion"), top: 20, left: 80),
+          Positioned(child: Text("Informacion de transaccion",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          top: 20, left: 65),
           Positioned(child: Text("Fecha"), top: 60, left: 70),
           Positioned(child: Text("Fecha"), top: 60, right: 70),
           Positioned(child: Container(
@@ -234,9 +231,71 @@ class _TransactionState extends State<Transactions> {
                 child: Text("JEM018"),
               )
           ), top: 330, left: 20),
-          Positioned(child: Text("Lista de Productos"), top: 370)
+          Positioned(child: Text("Lista de Productos"), top: 380, left: 100),
+          Positioned(
+            child: Container(
+              height: 150,
+              width: 280,
+              color: Colors.white,
+              child: ListView.separated(
+                padding: const EdgeInsets.all(8),
+                itemCount: 3,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 60,
+                    color: Color(0xffEFEFEF),
+                    child: _buildProductBox(context),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) => const Divider(),
+              ),
+            ), top: 410, left: 20,
+          )
         ],
       ),
+    );
+  }
+
+  Widget _buildProductBox(BuildContext context) {
+    return new Container(
+      child: Stack(
+        children: [
+          Positioned(
+            child: Text('Curcuma fresca'),
+            top: 10,
+            left: 10
+          ),
+          Positioned(
+              child: Text('CAOM0112'),
+              top: 30,
+              left: 10
+          ),
+          Positioned(
+            child: Container(
+              color: Color(0xff073B3A),
+              child: Column(
+                children: [
+                  Text("250g", style: TextStyle(color: Colors.white)),
+                  Text("Unidad", style: TextStyle(color: Colors.white))
+                ],
+              ),
+            ), top: 15, right: 75,
+          ),
+          Positioned(
+            child: Container(
+              color: Color(0xff073B3A),
+              child: Column(
+                children: [
+                  Text("50", style: TextStyle(color: Colors.white)),
+                  Text("Cantidad", style: TextStyle(color: Colors.white))
+                ],
+              ),
+            ),
+            top: 15,
+            right: 10
+          )
+        ],
+      )
     );
   }
 }
