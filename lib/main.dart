@@ -68,15 +68,15 @@ class _MyHomePageState extends State<MyHomePage> {
           )),
       bottomNavigationBar: CurvedNavigationBar(
         index: _pageIndex,
-        color: Colors.amber,
-        backgroundColor: Colors.white,
-        buttonBackgroundColor: Colors.amber,
+        color: Color(0xff073B3A),
+        backgroundColor: Color(0xffEFEFEF),
+        buttonBackgroundColor: Color(0xff073B3A),
         height: 50,
         items: <Widget>[
-          Icon(AppIcons.transaction, size: 25, color: Colors.black),
-          Icon(AppIcons.storage, size: 25, color: Colors.black),
-          Icon(AppIcons.processes, size: 25, color: Colors.black),
-          Icon(AppIcons.document, size: 25, color: Colors.black),
+          Icon(AppIcons.transaction, size: 25, color: Colors.white),
+          Icon(AppIcons.storage, size: 25, color: Colors.white),
+          Icon(AppIcons.processes, size: 25, color: Colors.white),
+          Icon(AppIcons.document, size: 25, color: Colors.white),
         ],
         animationDuration: Duration(milliseconds: 200),
         onTap: (int tappedIndex) {
