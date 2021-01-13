@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../app_icons.dart';
+import '../add_bar.dart';
+import '../data_object.dart';
 import '../drawer_header.dart';
 
 class Transactions extends StatefulWidget {
@@ -13,15 +15,33 @@ class Transactions extends StatefulWidget {
 
 class _TransactionState extends State<Transactions> {
 
-  String _title = "Transactions";
+  //La question c'est, dans l'historique des transactions, voulez vous voir seulement le code du prodycteur ? parce
+  //qu'une transaction contient plusieurs produits
+
+  String _title = "Transacciones";
   String entrada = "Entrada de Mercaderia";
   String salida = "Salida de Mercaderia";
 
-  changeTitle(String title) {
-    setState(() {
-      _title = title;
-    });
-  }
+  static Producto uno = new Producto("Curcuma Fresca", "CUFC011220", 800, 26);
+  static Producto dos = new Producto("Curcuma Fresca", "CUFC021220", 800, 20);
+  static Producto tres = Producto("Canela Molida", "CAMO021220", 500, 30);
+  static Producto quatro = Producto("Canela Molida", "CAMO011220", 500, 50);
+  static Producto cinco = Producto("Canela Molida", "CAMO031220", 500, 15);
+
+  static List<Producto> listJem = [dos, tres];
+  static List<Producto> listKim = [uno, quatro];
+  static List<Producto> listLum = [cinco];
+
+  static List<String> lotes = ["JEM011212", "KIM021212", "LUM031212"];
+
+  static Transac jem = new Transac("j...", "JEM", "Macas", "KLM", "12/12/20",
+      "12/12/20", listJem);
+  static Transac kim = new Transac("k...", "KIM", "Cuenca", "Local Airlines",
+      "05/12/20", "06/12/20", listKim);
+  static Transac lum = new Transac("l...", "LUM", "Quito", "AirQuito",
+      "12/12/20", "13/12/20", listLum);
+
+  static List<Transac> mercaderias = [jem, kim, lum];
 
   @override
   Widget build(BuildContext context) {
@@ -54,54 +74,14 @@ class _TransactionState extends State<Transactions> {
           color: Color(0xffEFEFEF),
           child: Column(
             children: <Widget>[
-              Container(
-                color: Colors.white,
-                child:
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 2,
-                      child: Icon(AppIcons.entry, color: Color(0xff073B3A)),
-                    ),
-                    Expanded(
-                      flex: 5,
-                      child: Text("Entrada de Mercaderia", style: TextStyle(color: Color(0xff073B3A), fontSize: 16)),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: FlatButton(
-                        color: Colors.white,
-                        onPressed: () => {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                              _buildPopupDialog(context),
-                          ),
-                        },
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(color: Color(0xff073B3A))
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 6,
-                              child: Text("Anadir", style: TextStyle(color: Color(0xff073B3A)))
-                            ),
-                            Icon(Icons.add, color: Color(0xff073B3A)),
-                          ],
-                        ),
-                      ),
-                    )
-                  ]
-                )
-              ),
+              AddBar(icon: Icon(AppIcons.entry, color: Color(0xff073B3A)),
+                  title: "Entrada de Mercaderia", page: 1),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 4,
+                  itemCount: mercaderias.length,
                   scrollDirection: Axis.vertical,
                   padding: EdgeInsets.all(5.0),
-                  itemBuilder: (context, index) => _buildListItem(index)
+                  itemBuilder: (context, index) => _buildListItem(context, index)
                 ),
               ),
             ],
@@ -111,7 +91,7 @@ class _TransactionState extends State<Transactions> {
     );
   }
 
-  Widget _buildListItem(int index) {
+  Widget _buildListItem(BuildContext context, int index) {
     return InkWell(
       child: Container(
         height: 70,
@@ -123,15 +103,17 @@ class _TransactionState extends State<Transactions> {
         ),
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Stack(children: [
-            Positioned(
-              child: Text("Cliente", style:
+            Align(
+              alignment: Alignment(-0.78, -0.4),
+              child: Text('${mercaderias[index].productor_name}', style:
                 TextStyle(
                   color: Color(0xff073B3A),
                   fontWeight: FontWeight.bold,
                   fontSize: 18
                 )
-              ), top: 14, left: 30),
-            Positioned(child: Text("12/12/20", style:
+              )
+            ),
+            Positioned(child: Text('${mercaderias[index].fecha_uno}', style:
               TextStyle(
                 color: Color(0xff073B3A),
                   fontSize: 16
@@ -140,7 +122,7 @@ class _TransactionState extends State<Transactions> {
             Positioned(
               top: 25,
               right: 45,
-              child: Text("CAOM0112", style:
+              child: Text('${lotes[index]}', style:
                 TextStyle(
                   color: Color(0xff073B3A),
                   fontWeight: FontWeight.bold,
@@ -154,13 +136,13 @@ class _TransactionState extends State<Transactions> {
       onTap: () {
         showDialog(
           context: context,
-          builder: (BuildContext context) => _buildPopupDialog(context),
+          builder: (BuildContext context) => _buildPopupTransaction(context, index),
         );
       }
     );
   }
 
-  Widget _buildPopupDialog(BuildContext context) {
+  Widget _buildPopupTransaction(BuildContext context, int num_trans) {
     return new Dialog(
       backgroundColor: Color(0xffEFEFEF),
       insetPadding: EdgeInsets.fromLTRB(20, 50, 20, 100),
@@ -177,7 +159,7 @@ class _TransactionState extends State<Transactions> {
             color: Colors.white,
             child: Align(
               alignment: Alignment.center,
-              child: Text("12/10/20"),
+              child: Text("${mercaderias[num_trans].fecha_uno}"),
             )
           ),
           top: 90, left: 20),
@@ -187,7 +169,7 @@ class _TransactionState extends State<Transactions> {
             color: Colors.white,
             child: Align(
               alignment: Alignment.center,
-              child: Text("13/10/20"),
+              child: Text("${mercaderias[num_trans].fecha_dos}"),
             )
           ),
           top: 90, right: 20),
@@ -198,7 +180,7 @@ class _TransactionState extends State<Transactions> {
               color: Colors.white,
               child: Align(
                 alignment: Alignment.center,
-                child: Text("Pooti Somik Chios"),
+                child: Text("${mercaderias[num_trans].productor_name}"),
               )
           ), top: 170, left: 20),
           Positioned(child: Text("Ciudad / Communidad"), top: 220, left: 20),
@@ -209,7 +191,7 @@ class _TransactionState extends State<Transactions> {
               color: Colors.white,
               child: Align(
                 alignment: Alignment.center,
-                child: Text("Macas"),
+                child: Text("${mercaderias[num_trans].comunidad}"),
               )
           ), top: 250, left: 20),
           Positioned(child: Container(
@@ -218,7 +200,7 @@ class _TransactionState extends State<Transactions> {
               color: Colors.white,
               child: Align(
                 alignment: Alignment.center,
-                child: Text("KLM"),
+                child: Text("${mercaderias[num_trans].compania}"),
               )
           ), top: 250, right: 20),
           Positioned(child: Text("Codigo del Productor"), top: 300, left: 100),
@@ -228,7 +210,7 @@ class _TransactionState extends State<Transactions> {
               color: Colors.white,
               child: Align(
                 alignment: Alignment.center,
-                child: Text("JEM018"),
+                child: Text("${mercaderias[num_trans].p_code}"),
               )
           ), top: 330, left: 20),
           Positioned(child: Text("Lista de Productos"), top: 380, left: 100),
@@ -239,12 +221,12 @@ class _TransactionState extends State<Transactions> {
               color: Colors.white,
               child: ListView.separated(
                 padding: const EdgeInsets.all(8),
-                itemCount: 3,
+                itemCount: mercaderias[num_trans].getLotes().length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     height: 60,
                     color: Color(0xffEFEFEF),
-                    child: _buildProductBox(context),
+                    child: _buildProductBox(context, num_trans, index),
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) => const Divider(),
@@ -256,17 +238,17 @@ class _TransactionState extends State<Transactions> {
     );
   }
 
-  Widget _buildProductBox(BuildContext context) {
+  Widget _buildProductBox(BuildContext context, int miel, int index) {
     return new Container(
       child: Stack(
         children: [
           Positioned(
-            child: Text('Curcuma fresca'),
+            child: Text('${mercaderias[miel].lotes[index].name}'),
             top: 10,
             left: 10
           ),
           Positioned(
-              child: Text('CAOM0112'),
+              child: Text('${mercaderias[miel].lotes[index].code}'),
               top: 30,
               left: 10
           ),
@@ -275,7 +257,8 @@ class _TransactionState extends State<Transactions> {
               color: Color(0xff073B3A),
               child: Column(
                 children: [
-                  Text("250g", style: TextStyle(color: Colors.white)),
+                  Text("${mercaderias[miel].lotes[index].unidad}",
+                    style: TextStyle(color: Colors.white)),
                   Text("Unidad", style: TextStyle(color: Colors.white))
                 ],
               ),
@@ -286,7 +269,7 @@ class _TransactionState extends State<Transactions> {
               color: Color(0xff073B3A),
               child: Column(
                 children: [
-                  Text("50", style: TextStyle(color: Colors.white)),
+                  Text("${mercaderias[miel].lotes[index].cantidad}", style: TextStyle(color: Colors.white)),
                   Text("Cantidad", style: TextStyle(color: Colors.white))
                 ],
               ),
@@ -299,4 +282,6 @@ class _TransactionState extends State<Transactions> {
     );
   }
 }
+
+
 

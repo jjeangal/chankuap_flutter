@@ -12,7 +12,7 @@ class StorageAppBar extends StatelessWidget {
     return AppBar(
       title: Text("$appBarTitle"),
       centerTitle: true,
-      backgroundColor: Colors.amber,
+      backgroundColor: Color(0xff073B3A),
       actions: <Widget>[new IconButton(
           icon: new Icon(Icons.search),
           onPressed: () => print("search")

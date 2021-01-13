@@ -6,12 +6,12 @@ class drawerHeader extends StatelessWidget{
   Widget build(BuildContext context) {
     return DrawerHeader(
       decoration: BoxDecoration(
-        color: Colors.amber,
+        color: Color(0xffEFEFEF),
       ),
       child: Text(
         'Drawer Header',
         style: TextStyle(
-          color: Colors.white,
+          color: Color(0xff073B3A),
           fontSize: 24,
         ),
       ),
