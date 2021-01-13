@@ -40,7 +40,7 @@ class AddButton extends StatelessWidget {
   Widget _buildProcessForm(context) {
     return new Dialog(
       backgroundColor: Color(0xffEFEFEF),
-      insetPadding: EdgeInsets.fromLTRB(20, 0, 20, 150),
+      insetPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: SingleChildScrollView(
         padding: EdgeInsets.all(10.0),
         child: new FormBuilder(
@@ -78,7 +78,7 @@ class AddButton extends StatelessWidget {
                       },
                     )
                   ),
-                  Expanded(flex: 5, child: FormBuilderDateTimePicker(attribute: 'date')),
+                  Expanded(flex: 5, child: FormBuilderDateTimePicker(attribute: 'fecha',)),
                 ],
               ),
               Container(height: 30),
@@ -151,10 +151,65 @@ class AddButton extends StatelessWidget {
                   )
                 ],
               ),
-
+              Align(
+                child: Container(
+                  decoration: new BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: new BorderRadius.all(Radius.circular(10))
+                  ),
+                  height: 200,
+                  child: ListView.separated(
+                      itemCount: 3,
+                      scrollDirection: Axis.vertical,
+                      padding: EdgeInsets.all(5.0),
+                      itemBuilder: (context, index) => _buildMaterialItem(context, index),
+                      separatorBuilder: (BuildContext context, int index) => const Divider()
+                  ),
+                ),
+              )
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildMaterialItem(BuildContext context, int index) {
+    return new Container (
+      decoration: new BoxDecoration(
+        color: Color(0xffEFEFEF),
+        borderRadius: new BorderRadius.all(Radius.circular(10))
+      ),
+      height: 60,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment(-0.8, -0.5),
+            child: Container(
+              height: 20,
+              width: 100,
+              color: Colors.greenAccent,
+              child: Text("Canela Molida", textAlign: TextAlign.center)
+            )
+          ),
+          Align(
+            alignment: Alignment(-0.8, 0.5),
+            child: Container(
+              height: 20,
+              width: 100,
+              color: Colors.black12,
+              child: Text("CAO011212", textAlign: TextAlign.center)
+            )
+          ),
+          Align(
+            alignment: Alignment(0.8, 0),
+            child: Container(
+              height: 20, width: 80,
+              color: Colors.blue,
+              child: Text("12 Kg", textAlign: TextAlign.center)
+            )
+          ),
+        ],
       ),
     );
   }
