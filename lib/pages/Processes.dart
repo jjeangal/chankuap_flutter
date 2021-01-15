@@ -59,7 +59,6 @@ class _ProcessesState extends State<Processes>{
             Align(
               alignment: Alignment(-0.75, -0.3),
               child: Container(
-                color: Colors.greenAccent,
                 width: 120,
                 child: Text('Yollanda', style:
                   TextStyle(
@@ -72,7 +71,6 @@ class _ProcessesState extends State<Processes>{
             Align(
               alignment: Alignment(-0.75, 0.6),
               child: Container(
-                color: Colors.blueGrey,
                 width: 120,
                 child: Text('10/11/2000', style: TextStyle(
                     color: Color(0xff073B3A),
@@ -84,7 +82,6 @@ class _ProcessesState extends State<Processes>{
             Align(
               alignment: Alignment(0.7, -0.3),
               child: Container(
-                color: Colors.blueGrey,
                 width: 120,
                 child: Text('Descripcion', style:
                   TextStyle(
@@ -98,7 +95,6 @@ class _ProcessesState extends State<Processes>{
             Align(
               alignment: Alignment(0.7, 0.5),
               child: Container(
-                color: Colors.greenAccent,
                 width: 120,
                 child: Text('Terminado', style:
                   TextStyle(
@@ -305,7 +301,7 @@ Widget _buildProductBox(BuildContext context, int index) {
           child: Container(
             width: 110,
             color: Colors.white,
-            child: Text("Descripcion", textAlign: TextAlign.left),
+            child: Text("Canela Molida", textAlign: TextAlign.left),
           ),
         ),
         Align(
@@ -314,7 +310,7 @@ Widget _buildProductBox(BuildContext context, int index) {
             width: 110,
             height: 20,
             color: Colors.white,
-            child: Text("No Lote", textAlign: TextAlign.left),
+            child: Text("CAO011212", textAlign: TextAlign.left),
           ),
         ),
         Align(

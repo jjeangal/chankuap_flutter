@@ -1,3 +1,4 @@
+import 'package:chankuap_flutter/selectMaterial.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -15,7 +16,11 @@ class AddButton extends StatelessWidget {
     return FlatButton(
       color: Colors.white,
       onPressed: () => {
-        if (page == 1) print("we in transactions"),
+        if (page == 1) print("entrada"),
+        if (page == 2) showDialog(
+          context: context,
+          builder: (BuildContext context) => _buildSalidaForm(context),
+        ),
         if (page == 3) showDialog(
           context: context,
           builder: (BuildContext context) => _buildProcessForm(context),
@@ -146,7 +151,7 @@ class AddButton extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: IconButton(icon: Icon(Icons.add),
-                      onPressed: () => print("why"),
+                      onPressed: () => StepperPage(),
                     ),
                   )
                 ],
@@ -188,8 +193,7 @@ class AddButton extends StatelessWidget {
             child: Container(
               height: 20,
               width: 100,
-              color: Colors.greenAccent,
-              child: Text("Canela Molida", textAlign: TextAlign.center)
+              child: Text("Descripcion", textAlign: TextAlign.center)
             )
           ),
           Align(
@@ -197,20 +201,133 @@ class AddButton extends StatelessWidget {
             child: Container(
               height: 20,
               width: 100,
-              color: Colors.black12,
-              child: Text("CAO011212", textAlign: TextAlign.center)
+              child: Text("No. Lote", textAlign: TextAlign.center)
             )
           ),
           Align(
-            alignment: Alignment(0.8, 0),
+            alignment: Alignment(0.7, 0),
             child: Container(
               height: 20, width: 80,
-              color: Colors.blue,
               child: Text("12 Kg", textAlign: TextAlign.center)
+            )
+          ),
+          Align(
+            alignment: Alignment(1.25, -1.25),
+            child: Container(
+              height: 20, width: 80,
+              child: IconButton(icon: Icon(Icons.close), onPressed: () => print("mab"))
             )
           ),
         ],
       ),
     );
   }
+
+  Widget _buildSalidaForm(context) {
+    return new Dialog(
+      backgroundColor: Color(0xffEFEFEF),
+      insetPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(10.0),
+        child: new FormBuilder(
+          key: _fbkey,
+          child: Stack(
+            children: <Widget>[
+              Container(child: Text('Registrar una salida de mercaderia',
+                  style: TextStyle(fontSize: 16))),
+              Container(height: 30),
+              Row(
+                children: [
+                  Expanded(flex: 5, child: Text("Producto", textAlign: TextAlign.center)),
+                  Expanded(flex: 5, child: Text("Fecha", textAlign: TextAlign.center))
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(flex: 5,
+                      child: TypeAheadField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                          autofocus: true,
+                          textAlign: TextAlign.center,
+                        ),
+                        // ignore: missing_return
+                        suggestionsCallback: (pattern) async {
+                          //return await BackendService.getSuggestions(pattern);
+                        },
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                            title: Text(suggestion),
+                          );
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          this._typeAheadController.text = suggestion;
+                        },
+                      )
+                  ),
+                  Expanded(flex: 5, child: FormBuilderDateTimePicker(attribute: 'fecha',)),
+                ],
+              ),
+              Container(height: 30),
+              Row(
+                children: [
+                  Expanded(flex: 5, child: Text("No. Lote", textAlign: TextAlign.center)),
+                  Expanded(flex: 5, child: Text("Quien", textAlign: TextAlign.center))
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(flex: 5, child: FormBuilderTextField(maxLines: 1,
+                      attribute: 'no_lote', textAlign: TextAlign.center)),
+                  Expanded(
+                      flex: 5,
+                      child: FormBuilderDropdown(
+                          hint: Text('Elige', textAlign: TextAlign.center),
+                          attribute: 'unidad',
+                          items: ['Isaac', 'Yollanda', 'Nube', 'Veronica', 'Anita']
+                              .map((quien) =>
+                              DropdownMenuItem(
+                                  value: quien,
+                                  child: Text("$quien", textAlign: TextAlign.center)
+                              )
+                          ).toList()
+                      )
+                  )
+                ],
+              ),
+              Container(height: 30),
+              Row(
+                children: [
+                  Expanded(flex: 4, child: Text('Cantidad', textAlign: TextAlign.center)),
+                  Expanded(flex: 2, child: Text('Unidad', textAlign: TextAlign.center)),
+                  Expanded(flex: 4, child: Text('Precio', textAlign: TextAlign.center))
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(flex: 4, child: FormBuilderTextField(maxLines: 1,
+                      attribute: 'cantidad', textAlign: TextAlign.center)),
+                  Expanded(flex: 2, child: FormBuilderDropdown(
+                      hint: Text('Elige', textAlign: TextAlign.center),
+                      attribute: 'unidad',
+                      items: ['kg', 'lb']
+                          .map((unidad) =>
+                          DropdownMenuItem(
+                              value: unidad,
+                              child: Text("$unidad")
+                          )
+                      ).toList()
+                  )
+                  ),
+                  Expanded(flex: 4, child: FormBuilderTextField(maxLines: 1,
+                      attribute: 'precio', textAlign: TextAlign.center))
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
 }
+
