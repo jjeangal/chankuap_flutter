@@ -11,12 +11,12 @@ class TransactionAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text("$appBarTitle",
-          style: TextStyle(fontSize: 19, color: Color(0xff073B3A))),
+          style: TextStyle(fontSize: 19, color: Colors.white)),
       centerTitle: true,
-      backgroundColor: Colors.white,
-      iconTheme: IconThemeData(color: Color(0xff073B3A)),
+      backgroundColor: Color(0xff073B3A),
+      iconTheme: IconThemeData(color: Colors.white),
       actions: <Widget>[new IconButton(
-          icon: new Icon(Icons.search, color: Color(0xff073B3A)),
+          icon: new Icon(Icons.search, color: Colors.white),
           onPressed: () => print("search")
       )],
     );

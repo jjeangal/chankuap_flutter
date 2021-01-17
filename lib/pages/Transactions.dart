@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Salida.dart';
+import 'Entrada.dart';
 import '../drawer_header.dart';
 
 class Transactions extends StatefulWidget {
@@ -13,12 +14,26 @@ class Transactions extends StatefulWidget {
 
 class _TransactionState extends State<Transactions> {
 
-  //La question c'est, dans l'historique des transactions, voulez vous voir seulement le code du prodycteur ? parce
-  //qu'une transaction contient plusieurs produits
-
   String _title = "Transacciones";
-  String entrada = "Entrada de Mercaderia";
-  String salida = "Salida de Mercaderia";
+  String name_entrada = "Entrada de Mercaderia";
+  String name_salida = "Salida de Mercaderia";
+
+  Widget _current = Entrada();
+
+  final Entrada _entrada = Entrada();
+  final Salida _salida = Salida();
+
+
+  Widget _changeBody (int page) {
+    switch (page) {
+      case 0:
+        return _entrada;
+        break;
+      case 1:
+        return _salida;
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +48,27 @@ class _TransactionState extends State<Transactions> {
             children: <Widget>[
               drawerHeader(),
               ListTile(
-                title: Text(entrada),
+                title: Text(name_entrada),
                 onTap: () {
-                  Navigator.of(context).pop();
+                  setState(() {
+                    _current = _changeBody(0);
+                    Navigator.of(context).pop();
+                  });
                 },
               ),
               ListTile(
-                title: Text(salida),
+                title: Text(name_salida),
                 onTap: () {
-                  Navigator.of(context).pop();
+                  setState(() {
+                    _current = _changeBody(1);
+                    Navigator.of(context).pop();
+                  });
                 },
               ),
             ],
           ),
         ),
-        body: Salida()
+        body: _current
       )
     );
   }

@@ -1,95 +1,145 @@
-import 'package:chankuap_flutter/selectMaterial.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
+import '../app_bars/form_app_bar.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class EntradaForm extends StatelessWidget {
 
   final GlobalKey <FormBuilderState> _fbkey = new GlobalKey<FormBuilderState>();
   final TextEditingController _typeAheadController = TextEditingController();
+  final clienteFocusNode = FocusNode();
+  final IdFocusNode = FocusNode();
+  final DondeFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-      return new Dialog(
-        backgroundColor: Color(0xffEFEFEF),
-        insetPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+    return new Scaffold (
+        appBar: FormAppBar(),
+        body: SafeArea(
+            top: false,
+            bottom: false,
+            child: new Form(
+                key: _fbkey,
+                child: ListView(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      Container(
+                        child: Text("Entrada De Mercaderia",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      FormBuilderDateTimePicker(
+                        decoration: const InputDecoration(
+                          labelText: 'Date',
+                        ),
+                        attribute: 'date',
+                      ),
+                      SizedBox(height: 10),
+                      FormBuilderDropdown(
+                          decoration: const InputDecoration(
+                              labelText: 'Quien'
+                          ),
+                          initialValue: 'Isaac',
+                          attribute: 'quien',
+                          items: ['Isaac', 'Yollanda', 'Nube', 'Veronica', 'Anita']
+                              .map((quien) =>
+                              DropdownMenuItem(
+                                  value: quien,
+                                  child: Text("$quien", textAlign: TextAlign.center)
+                              )
+                          ).toList()
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Cliente',
+                        ),
+                        inputFormatters: [LengthLimitingTextInputFormatter(30)],
+                        onSaved: (name) {
+                          //print("Here the name should be saved");
+                        },
+                        autofocus: true,
+                        focusNode: clienteFocusNode,
+                        textInputAction: TextInputAction.next,
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          FocusScope.of(context).requestFocus(clienteFocusNode);
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'ID',
+                        ),
+                        inputFormatters: [LengthLimitingTextInputFormatter(30)],
+                        onSaved: (id) {
+                          //print("Here the name should be saved");
+                        },
+                        autofocus: true,
+                        focusNode: IdFocusNode,
+                        textInputAction: TextInputAction.next,
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          FocusScope.of(context).requestFocus(DondeFocusNode);
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Ciudad / Comunidad',
+                        ),
+                        inputFormatters: [LengthLimitingTextInputFormatter(30)],
+                        onSaved: (comunidad) {
+                          //print("Here the name should be saved");
+                        },
+                        autofocus: true,
+                        focusNode: DondeFocusNode,
+                        textInputAction: TextInputAction.next,
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          FocusScope.of(context).requestFocus(DondeFocusNode);
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      FormBuilderDropdown(
+                          attribute: 'medio',
+                          decoration: const InputDecoration(
+                            labelText: 'Medio de Transporte',
+                          ),
+                          items: ['Caro', 'Avion']
+                              .map((medio) =>
+                              DropdownMenuItem(
+                                  value: medio,
+                                  child: Text("$medio", textAlign: TextAlign.center)
+                              )
+                          ).toList()
+                      ),
+                    ]
+                )
+            )
+        )
+    );
+  }
+/**
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold (
+      appBar: FormAppBar(),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(color: Color(0xffEFEFEF)),
         child: SingleChildScrollView(
           padding: EdgeInsets.all(10.0),
           child: new FormBuilder(
             key: _fbkey,
             child: Column(
               children: <Widget>[
-                Container(child: Text('Agregue un Processo',
-                    style: TextStyle(fontSize: 16))),
-                Container(height: 30),
-                Row(
-                  children: [
-                    Expanded(flex: 5, child: Text("Producto", textAlign: TextAlign.center)),
-                    Expanded(flex: 5, child: Text("Fecha", textAlign: TextAlign.center))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(flex: 5,
-                        child: TypeAheadField(
-                          textFieldConfiguration: TextFieldConfiguration(
-                            autofocus: true,
-                            textAlign: TextAlign.center,
-                          ),
-                          // ignore: missing_return
-                          suggestionsCallback: (pattern) async {
-                            //return await BackendService.getSuggestions(pattern);
-                          },
-                          itemBuilder: (context, suggestion) {
-                            return ListTile(
-                              title: Text(suggestion),
-                            );
-                          },
-                          onSuggestionSelected: (suggestion) {
-                            this._typeAheadController.text = suggestion;
-                          },
-                        )
-                    ),
-                    Expanded(flex: 5, child: FormBuilderDateTimePicker(attribute: 'fecha',)),
-                  ],
-                ),
-                Container(height: 30),
-                Row(
-                  children: [
-                    Expanded(flex: 5, child: Text("No. Lote", textAlign: TextAlign.center)),
-                    Expanded(flex: 5, child: Text("Quien", textAlign: TextAlign.center))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(flex: 5, child: FormBuilderTextField(maxLines: 1,
-                        attribute: 'no_lote', textAlign: TextAlign.center)),
-                    Expanded(
-                        flex: 5,
-                        child: FormBuilderDropdown(
-                            hint: Text('Elige', textAlign: TextAlign.center),
-                            attribute: 'unidad',
-                            items: ['Isaac', 'Yollanda', 'Nube', 'Veronica', 'Anita']
-                                .map((quien) =>
-                                DropdownMenuItem(
-                                    value: quien,
-                                    child: Text("$quien", textAlign: TextAlign.center)
-                                )
-                            ).toList()
-                        )
-                    )
-                  ],
-                ),
-                Container(height: 30),
-                Row(
-                  children: [
-                    Expanded(flex: 4, child: Text('Cantidad', textAlign: TextAlign.center)),
-                    Expanded(flex: 2, child: Text('Unidad', textAlign: TextAlign.center)),
-                    Expanded(flex: 4, child: Text('Precio', textAlign: TextAlign.center))
-                  ],
-                ),
                 Row(
                   children: [
                     Expanded(flex: 4, child: FormBuilderTextField(maxLines: 1,
@@ -104,7 +154,7 @@ class EntradaForm extends StatelessWidget {
                                 child: Text("$unidad")
                             )
                         ).toList()
-                    )
+                      )
                     ),
                     Expanded(flex: 4, child: FormBuilderTextField(maxLines: 1,
                         attribute: 'precio', textAlign: TextAlign.center))
@@ -131,7 +181,7 @@ class EntradaForm extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: new BorderRadius.all(Radius.circular(10))
                     ),
-                    height: 200,
+                    height: 250,
                     child: ListView.separated(
                         itemCount: 3,
                         scrollDirection: Axis.vertical,
@@ -145,8 +195,10 @@ class EntradaForm extends StatelessWidget {
             ),
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
+
   Widget _buildMaterialItem(BuildContext context, int index) {
     return new Container (
       decoration: new BoxDecoration(
@@ -190,4 +242,5 @@ class EntradaForm extends StatelessWidget {
       ),
     );
   }
+ **/
 }
