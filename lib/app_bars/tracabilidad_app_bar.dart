@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TracabilidadAppBar extends StatelessWidget {
   String appBarTitle;
 
-  TracabilidadAppBar(String title){
+  TracabilidadAppBar(String title) {
     this.appBarTitle = title;
   }
 
@@ -13,10 +13,10 @@ class TracabilidadAppBar extends StatelessWidget {
       title: Text("$appBarTitle"),
       centerTitle: true,
       backgroundColor: Color(0xff073B3A),
-      actions: <Widget>[new IconButton(
-          icon: new Icon(Icons.search),
-          onPressed: () => print("search")
-      )],
+      actions: <Widget>[
+        new IconButton(
+            icon: new Icon(Icons.search), onPressed: () => print("search"))
+      ],
     );
   }
 }

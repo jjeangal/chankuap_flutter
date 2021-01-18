@@ -9,10 +9,11 @@ class ProcessesAppBar extends StatelessWidget {
       centerTitle: true,
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Color(0xff073B3A)),
-      actions: <Widget>[new IconButton(
-          icon: new Icon(Icons.search, color: Color(0xff073B3A)),
-          onPressed: () => print("search")
-      )],
+      actions: <Widget>[
+        new IconButton(
+            icon: new Icon(Icons.search, color: Color(0xff073B3A)),
+            onPressed: () => print("search"))
+      ],
     );
   }
 }

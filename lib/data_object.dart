@@ -1,5 +1,4 @@
 class Transac {
-
   final String productor_name;
   final String p_code;
   final String comunidad;

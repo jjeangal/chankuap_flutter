@@ -1,6 +1,6 @@
 import 'package:chankuap_flutter/app_icons.dart';
-import 'package:chankuap_flutter/pages/Profile.dart';
 import 'package:chankuap_flutter/pages/Processes.dart';
+import 'package:chankuap_flutter/pages/Profile.dart';
 import 'package:chankuap_flutter/pages/Tracabilidad.dart';
 import 'package:chankuap_flutter/pages/Transactions.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -64,8 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Container(
           child: Center(
-            child: _showPage,
-          )),
+        child: _showPage,
+      )),
       bottomNavigationBar: CurvedNavigationBar(
         index: _pageIndex,
         color: Color(0xff073B3A),
