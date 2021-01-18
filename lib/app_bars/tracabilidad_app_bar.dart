@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class StorageAppBar extends StatelessWidget {
+class TracabilidadAppBar extends StatelessWidget {
   String appBarTitle;
 
-  StorageAppBar(String title){
+  TracabilidadAppBar(String title){
     this.appBarTitle = title;
   }
 

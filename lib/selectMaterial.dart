@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:cupertino_stepper/cupertino_stepper.dart';
 import 'package:flutter/material.dart';
 
+import 'steps/step_one_entrada.dart';
+import 'steps/step_two_entrada.dart';
+
+
 class StepperPage extends StatefulWidget {
   @override
   _StepperPageState createState() => _StepperPageState();
@@ -10,9 +14,32 @@ class StepperPage extends StatefulWidget {
 class _StepperPageState extends State<StepperPage> {
   int currentStep = 0;
 
+  final LoteFocusNode = FocusNode();
+
+  List<Step> steps = <Step>[
+    Step(
+      title: Text("Producto"),
+      subtitle: Text('Selecionar nombre y codigo'),
+      content: LimitedBox(
+        maxWidth: 300,
+        maxHeight: 150,
+        child: new StepOneEntrada()
+      )
+    ),
+    Step(
+      title: Text("Information de Producto"),
+      subtitle: Text('Selectionar cantidad unidad y precio'),
+      content: LimitedBox(
+        maxWidth: 300,
+        maxHeight: 200,
+        child: new StepTwoEntrada()
+      )
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return new Dialog(
+    return new Container(
       child: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('CupertinoStepper for Flutter'),
@@ -37,49 +64,18 @@ class _StepperPageState extends State<StepperPage> {
 
   CupertinoStepper _buildStepper(StepperType type) {
     final canCancel = currentStep > 0;
-    final canContinue = currentStep < 3;
     return CupertinoStepper(
       type: type,
+      steps: steps,
       currentStep: currentStep,
       onStepTapped: (step) => setState(() => currentStep = step),
       onStepCancel: canCancel ? () => setState(() => --currentStep) : null,
-      onStepContinue: canContinue ? () => setState(() => ++currentStep) : null,
-      steps: [
-        for (var i = 0; i < 3; ++i)
-          _buildStep(
-            title: Text('Step ${i + 1}'),
-            isActive: i == currentStep,
-            state: i == currentStep
-                ? StepState.editing
-                : i < currentStep ? StepState.complete : StepState.indexed,
-          ),
-        _buildStep(
-          title: Text('Error'),
-          state: StepState.error,
-        ),
-        _buildStep(
-          title: Text('Disabled'),
-          state: StepState.disabled,
-        )
-      ],
-    );
-  }
-
-  Step _buildStep({
-    @required Widget title,
-    StepState state = StepState.indexed,
-    bool isActive = false,
-  }) {
-    return Step(
-      title: title,
-      subtitle: Text('Subtitle'),
-      state: state,
-      isActive: isActive,
-      content: LimitedBox(
-        maxWidth: 300,
-        maxHeight: 300,
-        child: Container(color: CupertinoColors.systemGrey),
-      ),
+      onStepContinue: () {
+        setState(() {
+          if (currentStep < steps.length - 1) currentStep++;
+          else (print("method alert + register product"));
+        });
+      }
     );
   }
 }

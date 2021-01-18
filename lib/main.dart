@@ -1,7 +1,7 @@
 import 'package:chankuap_flutter/app_icons.dart';
-import 'package:chankuap_flutter/pages/Documents.dart';
+import 'package:chankuap_flutter/pages/Profile.dart';
 import 'package:chankuap_flutter/pages/Processes.dart';
-import 'package:chankuap_flutter/pages/Storage.dart';
+import 'package:chankuap_flutter/pages/Tracabilidad.dart';
 import 'package:chankuap_flutter/pages/Transactions.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
 
   final Transactions tran = Transactions();
-  final Storage sto = Storage();
+  final Tracabilidad traca = Tracabilidad();
   final Processes pro = Processes();
-  final Documents doc = Documents();
+  final Profile prof = Profile();
 
   Widget _showPage = new Transactions();
 
@@ -46,13 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
         return tran;
         break;
       case 1:
-        return sto;
+        return traca;
         break;
       case 2:
         return pro;
         break;
       case 3:
-        return doc;
+        return prof;
         break;
       default:
         return tran;

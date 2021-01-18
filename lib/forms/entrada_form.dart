@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
+import '../selectMaterial.dart';
 import '../app_bars/form_app_bar.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class EntradaForm extends StatelessWidget {
 
   final GlobalKey <FormBuilderState> _fbkey = new GlobalKey<FormBuilderState>();
-  final TextEditingController _typeAheadController = TextEditingController();
+
   final clienteFocusNode = FocusNode();
   final IdFocusNode = FocusNode();
   final DondeFocusNode = FocusNode();
+  final stepperPage = StepperPage();
 
   @override
   Widget build(BuildContext context) {
@@ -120,10 +122,61 @@ class EntradaForm extends StatelessWidget {
                               )
                           ).toList()
                       ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 8,
+                            child: Text("Materias Primas",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 18)
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: IconButton(
+                              iconSize: 20,
+                              icon: Icon(Icons.add),
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => stepperPage),
+                              )
+                            ),
+                          )
+                        ],
+                      ),
+                      Container(
+                        height: 400,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 15),
+                          child: Container(
+                            color: Colors.greenAccent,
+                          ),
+                        )
+                      ),
                     ]
                 )
             )
+        ),
+      bottomNavigationBar: Container(
+        color: Color(0x00ffffff),
+        height: 60,
+        alignment: Alignment.centerRight,
+        child: Ink(
+          height: 60,
+          decoration: const ShapeDecoration(
+            color: Colors.blue,
+            shape: CircleBorder(),
+          ),
+          child: IconButton(
+            onPressed: () {},
+            splashColor: Colors.yellow,
+            icon: Icon(Icons.add),
+            iconSize: 20,
+            color: Colors.white,
+          ),
         )
+      )
     );
   }
 /**
