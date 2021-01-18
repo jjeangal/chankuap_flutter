@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
+import '../selectMaterial.dart';
 import '../app_bars/form_app_bar.dart';
+import '../forms/product_list.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class SalidaForm extends StatelessWidget {
 
   final GlobalKey <FormBuilderState> _fbkey = new GlobalKey<FormBuilderState>();
-  final TextEditingController _typeAheadController = TextEditingController();
   final nameFocusNode = FocusNode();
+  final stepperPage = new StepperPage();
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +37,17 @@ class SalidaForm extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 FormBuilderDateTimePicker(
-                    decoration: const InputDecoration(
-                      labelText: 'Date',
-                    ),
-                  attribute: 'date',
+                  decoration: const InputDecoration(
+                    labelText: 'Date',
+                  ),
+                  attribute: 'date1',
+                ),
+                SizedBox(height: 10),
+                FormBuilderDateTimePicker(
+                  decoration: const InputDecoration(
+                    labelText: 'Date',
+                  ),
+                  attribute: 'date2',
                 ),
                 SizedBox(height: 10),
                 FormBuilderDropdown(
@@ -94,6 +104,36 @@ class SalidaForm extends StatelessWidget {
                         child: Text("$medio", textAlign: TextAlign.center)
                       )
                   ).toList()
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 8,
+                      child: Text("Materias Primas",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18)
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: IconButton(
+                          iconSize: 20,
+                          icon: Icon(Icons.add),
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => stepperPage),
+                          )
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                    height: 400,
+                    child: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 15),
+                        child: ProductList()
+                    )
                 ),
               ],
             ),

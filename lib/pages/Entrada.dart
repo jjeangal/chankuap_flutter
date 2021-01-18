@@ -5,6 +5,8 @@ import '../app_icons.dart';
 import '../add_bar.dart';
 import '../data_object.dart';
 
+import 'package:commons/commons.dart';
+
 class Entrada extends StatelessWidget {
 
   static Producto uno = new Producto("Curcuma Fresca", "CUFC011220", 800, 26);
@@ -51,45 +53,61 @@ class Entrada extends StatelessWidget {
 
   Widget _buildListItem(BuildContext context, int index) {
     return InkWell(
-        child: Container(
-          height: 70,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                  Radius.circular(10)
-              )
-          ),
-          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: Stack(children: [
-            Align(
-                alignment: Alignment(-0.78, -0.4),
-                child: Text('${mercaderias[index].productor_name}', style:
-                TextStyle(
-                    color: Color(0xff073B3A),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18
-                )
-                )
-            ),
-            Positioned(child: Text('${mercaderias[index].fecha_uno}', style:
-            TextStyle(
-                color: Color(0xff073B3A),
-                fontSize: 16
+      child: Container(
+        height: 70,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+                Radius.circular(10)
             )
-            ), bottom: 14, left: 30),
-            Positioned(
-                top: 25,
-                right: 45,
-                child: Text('${lotes[index]}', style:
+        ),
+         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+         child: Stack(children: [
+           Align(
+            alignment: Alignment(-0.8, -0.5),
+            child: Text('Productor name', style:
+               TextStyle(
+                 color: Color(0xff073B3A),
+                 fontWeight: FontWeight.bold,
+                 fontSize: 16
+               )
+              )
+            ),
+            Align(
+              alignment: Alignment(-0.8, 0.5),
+              child: Text('Productor Code', style:
+                TextStyle(
+                  color: Color(0xff073B3A),
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16
+                )
+              )
+            ),
+            Align(
+              alignment: Alignment(0.7, 0),
+              child: Text('10/11/2000', style:
                 TextStyle(
                   color: Color(0xff073B3A),
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 16,
                 )
+              )
+            ),
+           Align(
+             alignment: Alignment(1.05, -1.4),
+             child: IconButton(
+               iconSize: 20,
+               icon: Icon(Icons.do_disturb_on_outlined),
+               onPressed: () => confirmationDialog(
+                   context,
+                   "Estas seguro ?",
+                   title: "Confirmacion",
+                   confirmationText: "Click here to confirmar",
+                   positiveText: "Delete", positiveAction: () {/**deleteFct**/}
+                  )
                 )
-            )
-          ],
-          ),
+           )
+         ]),
         ),
         onTap: () {
           showDialog(
@@ -239,6 +257,7 @@ class Entrada extends StatelessWidget {
         )
     );
   }
+
 }
 
 
